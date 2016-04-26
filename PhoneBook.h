@@ -17,13 +17,13 @@ struct Contact {
 
     Contact(){};
 
-    Contact(std::string in_number,std::string in_name, std::string in_email, int search, int favorite)
+    Contact(std::string in_number,std::string in_name, std::string in_email, int in_search, int in_favorite)
     {
         number = in_number;
         name = in_name;
         email = in_email;
-        search = 0;
-        favorite = false;
+        search = in_search;
+        favorite = in_favorite;
         parent = NULL;
         left = NULL;
         right = NULL;
@@ -35,7 +35,7 @@ class PhoneBook
 public:
     PhoneBook();
     ~PhoneBook();
-    void SearchPhoneBook(std::string name);
+    Contact* SearchPhoneBook(std::string name);
     void addContact(std::string name, std::string number, std::string email, int search, int favorite);
     void deleteContact(std::string name);
     void editContact(std::string name1, std::string name2, std::string number, std::string email);
@@ -46,7 +46,7 @@ public:
     void Favorites();
     void ChangeFavorite(std::string name, int favorite);
     void Recent();
-    
+
 
 private:
 	std::string file;
