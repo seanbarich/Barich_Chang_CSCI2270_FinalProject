@@ -10,7 +10,7 @@ using namespace std;
 int main()
 {
         PhoneBook *pNode = new PhoneBook;
-
+        int input = 1;
         while(input != 7 && input < 7 && input > 0){
         cout << "======Main Menu======" << endl;
         cout << "1. Add Contact" << endl;
@@ -29,24 +29,22 @@ int main()
         {
             cout << "Enter name:" << endl;
             string name;
-            getline(cin, name);
+            cin.ignore();
             getline(cin, name);
             cout << "Enter number:" << endl;
             string number;
             getline(cin, number);
-            getline(cin, number);
             cout << "Enter email:" << endl;
             string email;
             getline(cin, email);
-            getline(cin, email);
-            pNode->addContact(name, number, email);
+            pNode->addContact(name, number, email, 0, 0);
         }
 
         if(input==2)
         {
             cout << "Enter name:" << endl;
             string name;
-            getline(cin, name);
+            cin.ignore();
             getline(cin, name);
             pNode->deleteContact(name);
         }
@@ -63,32 +61,30 @@ int main()
 
         if(input==5)
         {
-            pNode->recent();
+            pNode->Recent();
         }
 
-        /*if(input==6)
+        if(input==6)
         {
+			cin.ignore();
             cout << "Enter Original Name:" << endl;
             string name1;
-            getline(cin, name1);
             getline(cin, name1);
             cout << "Enter New Name:" << endl;
             string name2;
             getline(cin, name2);
-            getline(cin, name2);
             cout << "Enter Number:" << endl;
             string number;
-            getline(cin, number);
             getline(cin, number);
             cout << "Enter Email:" << endl;
             string email;
             getline(cin, email);
-            getline(cin, email);
             pNode->editContact(name1, name2, number, email);
-        }*/
+        }
 
         if(input==7)
         {
             cout<<"Goodbye"<<endl;
         }
+	}
 }

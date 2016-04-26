@@ -9,6 +9,14 @@
 
 #include "PhoneBook.h"
 using namespace std;
+PhoneBook::PhoneBook()
+{
+	loadContacts();
+}
+PhoneBook::~PhoneBook()
+{
+	
+}
 
 Contact* PhoneBook::SearchPhoneBook(string name)
 {
@@ -262,6 +270,39 @@ void PhoneBook::Recent()
 	{
 		std::cout << recent[i] -> name << std::endl;
 	}
+}
+void PhoneBook::editContact(std::string name1, std::string name2, std::string number, std::string email)
+{
+    Contact *change = SearchPhoneBook(name1);
+    if(change != NULL){
+    change->name = name2;
+    change->number = number;
+    change->email = email;
+    cout<<"Changes Successfully Made"<<endl;
+    }
+    else{
+        cout<<"No Contact Was Found"<<endl;
+    }
+}
+
+void PhoneBook::printPhone(Contact* current)
+{
+    if(current->left!=NULL){
+        printPhone(current->left);
+    }
+    cout<<"Name: "<<current->name<<
+    cout<<"Number: "<<current->number<<
+    cout<<"Email: "<<current->email<<endl;
+    if(current->right!=NULL){
+        printPhone(current->right);
+    }
+}
+
+void PhoneBook::printPhoneBook()
+{
+    if (root != NULL){
+        printPhone(root);
+    }
 }
 
 #endif
