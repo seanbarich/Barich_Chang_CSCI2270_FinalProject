@@ -1,10 +1,16 @@
 #ifndef PHONEBOOK_CPP
 #define PHONEBOOK_CPP
 
-#include <sstream>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <stdlib.h>
 
-Contact *PhoneBook::SearchPhoneBook(string name)
+
+#include "PhoneBook.h"
+using namespace std;
+
+Contact* PhoneBook::SearchPhoneBook(string name)
 {
     Contact* current = root;
 
@@ -20,21 +26,21 @@ Contact *PhoneBook::SearchPhoneBook(string name)
             return current;
         }
     }
-    
+
 
 }
-void PhoneBook::addContact(string name, string number, string email)
+void PhoneBook::addContact(string name, string number, string email, int search, int favorite)
 {
         if(root == NULL){
-        root = new struct Contact(name, number, email);
+        root = new struct Contact(name, number, email, search, favorite);
     }
     else{
-        PhoneBook* current = root;
+        Contact* current = root;
 
         while (current != NULL){
             if(current->name >= name){
                 if (current->left == NULL){
-                    current->left = new struct Contact(name, number, email);
+                    current->left = new struct Contact(name, number, email, search, favorite);
                     current->left->parent = current;
                     current = NULL;
                 }
@@ -44,7 +50,7 @@ void PhoneBook::addContact(string name, string number, string email)
             }
             else if(current->name <= name){
                 if (current->right == NULL){
-                    current->right = new struct Contact(name, number, email);
+                    current->right = new struct Contact(name, number, email, search, favorite);
                     current->right->parent = current;
                     current = NULL;
                 }
@@ -58,7 +64,7 @@ void PhoneBook::addContact(string name, string number, string email)
 void PhoneBook::deleteContact(string name)
 {
     Contact* current = root;
-    current = searchMovieTree(title);
+    current = SearchPhoneBook(name);
     if(current != NULL){
         if (current->right != NULL && current->left != NULL){
             Contact* node = current->right;
@@ -70,7 +76,7 @@ void PhoneBook::deleteContact(string name)
             current->name = node->name;
             current->email = node->email;
 
-            if(node->rightChild != NULL){
+            if(node->right != NULL){
                 if (node->parent->left == node)
                     node->parent->left = node->right;
                 if (node->parent->right == node)
@@ -135,7 +141,8 @@ void PhoneBook::deleteContact(string name)
 void PhoneBook::loadContacts()
 {
 	ifstream contactsFile;
-	contactsFile.open(file);
+	string data;
+	contactsFile.open("Contacts.txt");
 	if(contactsFile.is_open())
 	{
 		while(getline(contactsFile, data))
@@ -147,7 +154,7 @@ void PhoneBook::loadContacts()
 			std::string number;
 			int search;
 			int favorite;
-			
+
 			for(int i = 0; (getline(ss,comma,',')); i++)
 			{
 				if(i % 5 == 0)
@@ -182,14 +189,14 @@ void PhoneBook::saveContacts()
 {
 	saveContacts(root);
 	ofstream outputFile;
-	outputFile.open(file);
+	outputFile.open("Contacts.txt");
 	if(outputFile.is_open())
 	{
 		for(int i = 0; i < contacts.size() - 1; i++)
 		{
 			outputFile << contacts[i] -> name << "," << contacts[i] -> number << "," << contacts[i] -> email << ",";
 			outputFile << contacts[i] -> search << "," << contacts[i] -> favorite << std::endl;
-			
+
 		}
 		outputFile.close();
 	}
@@ -197,13 +204,13 @@ void PhoneBook::saveContacts()
 }
 void PhoneBook::saveContacts(Contact *node)
 {
-	
+
 	Contact *nextNode;
 	if(node -> left != NULL)
 	{
 		nextNode = node -> left;
 		saveContacts(nextNode);
-		
+
 	}
 	contacts.push_back(node);
 	if(node -> right != NULL)
@@ -211,8 +218,8 @@ void PhoneBook::saveContacts(Contact *node)
 		nextNode = node -> right;
 		saveContacts(nextNode);
 	}
-		
-		
+
+
 }
 void PhoneBook::updateSearchCount(std::string name)
 {
@@ -222,7 +229,7 @@ void PhoneBook::updateSearchCount(std::string name)
 void PhoneBook::Favorites()
 {
 	std::cout << "-----FAVORITES-----" << std::endl;
-	printFavorites(root);	
+	printFavorites(root);
 }
 void PhoneBook::printFavorites(Contact *node)
 {
@@ -231,7 +238,7 @@ void PhoneBook::printFavorites(Contact *node)
 	{
 		nextNode = node -> left;
 		printFavorites(nextNode);
-		
+
 	}
 	if(node -> favorite == 1)
 	{
