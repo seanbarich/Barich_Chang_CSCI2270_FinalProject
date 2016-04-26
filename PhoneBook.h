@@ -3,24 +3,27 @@
 
 #include <sstream>
 #include <iostream>
+#include <vector>
 
 struct Contact {
     std::string number;
     std::string name;
     std::string email;
     int search;
+    int favorite; // 1 or 0
     Contact *parent;
     Contact *left;
     Contact *right;
 
     Contact(){};
 
-    Contact(std::string in_number,std::string in_name, std::string in_email)
+    Contact(std::string in_number,std::string in_name, std::string in_email, int search, int favorite)
     {
         number = in_number;
         name = in_name;
         email = in_email;
         search = 0;
+        favorite = false;
         parent = NULL;
         left = NULL;
         right = NULL;
@@ -33,14 +36,25 @@ public:
     PhoneBook();
     ~PhoneBook();
     void SearchPhoneBook(std::string name);
-    void addContact(std::string name, std::string number, std::string email);
+    void addContact(std::string name, std::string number, std::string email, int search, int favorite);
     void deleteContact(std::string name);
+    void editContact(std::string name1, std::string name2, std::string number, std::string email);
     void printPhoneBook();
+    void loadContacts();
     void saveContacts();
+    void updateSearchCount(std::string name);
     void Favorites();
+    void ChangeFavorite(std::string name, int favorite);
+    void Recent();
+    
 
 private:
-    PhoneBook *root;
-    PhoneBook* search(std::string name, PhoneBook *node);
+	std::string file;
+    Contact *root;
+    Contact* search(std::string name, Contact *node);
+    std::vector<Contact*> contacts;
+    std::vector<Contact*> recent;
+    void saveContacts(Contact *node);
+    void printFavorites(Contact *node);
 };
 #endif // PHONEBOOK_H
