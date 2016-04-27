@@ -299,7 +299,9 @@ void PhoneBook::printPhone(Contact* current)
 
 void PhoneBook::printPhoneBook()
 {
+
     if (root != NULL){
+		Favorites();
         printPhone(root);
     }
 }
