@@ -11,7 +11,7 @@ int main()
 {
         PhoneBook *pNode = new PhoneBook;
         int input = 1;
-        while(input != 7 && input < 7 && input > 0){
+        while(input != 8 && input < 8 && input > 0){
         cout << "======Main Menu======" << endl;
         cout << "1. Add Contact" << endl;
         cout << "2. Delete Contact" << endl;
@@ -19,7 +19,8 @@ int main()
         cout << "4. Search PhoneBook" << endl;
         cout << "5. Print Recent Contacts" << endl;
         cout << "6. Edit Contact" << endl;
-        cout << "7. Quit" << endl;
+        cout << "7. Add Favorite" << endl;
+        cout << "8. Quit" << endl;
 
 
         cout << "Enter Choice:";
@@ -83,6 +84,15 @@ int main()
         }
 
         if(input==7)
+        {
+            cout << "Enter name:" << endl;
+            string name;
+            cin.ignore();
+            getline(cin, name);
+            pNode->ChangeFavorite(name, 1);
+        }
+
+        if(input==8)
         {
             cout<<"Goodbye"<<endl;
         }

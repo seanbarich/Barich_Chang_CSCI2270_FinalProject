@@ -43,7 +43,6 @@ public:
     void loadContacts();
     void saveContacts();
     void updateSearchCount(std::string name);
-    void Favorites();
     void ChangeFavorite(std::string name, int favorite);
     void Recent();
 
