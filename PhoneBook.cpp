@@ -196,11 +196,10 @@ void PhoneBook::loadContacts()
 void PhoneBook::saveContacts()
 {
 	saveContacts(root);
-	ofstream outputFile;
-	outputFile.open("Contacts.txt");
+	ofstream outputFile("Contacts.txt");
 	if(outputFile.is_open())
 	{
-		for(int i = 0; i < contacts.size() - 1; i++)
+		for(int i = 0; i < contacts.size(); i++)
 		{
 			outputFile << contacts[i] -> name << "," << contacts[i] -> number << "," << contacts[i] -> email << ",";
 			outputFile << contacts[i] -> search << "," << contacts[i] -> favorite << std::endl;
