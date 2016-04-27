@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 
-#include "PhoneBook.h"
+#include "PhoneBook2.h"
 using namespace std;
 PhoneBook::PhoneBook()
 {
@@ -15,7 +15,7 @@ PhoneBook::PhoneBook()
 }
 PhoneBook::~PhoneBook()
 {
-	
+
 }
 
 Contact* PhoneBook::SearchPhoneBook(string name)
@@ -290,8 +290,8 @@ void PhoneBook::printPhone(Contact* current)
     if(current->left!=NULL){
         printPhone(current->left);
     }
-    cout<<"Name: "<<current->name<<
-    cout<<"Number: "<<current->number<<
+    cout<<"Name: "<<current->name<<endl;
+    cout<<"Number: "<<current->number<<endl;
     cout<<"Email: "<<current->email<<endl;
     if(current->right!=NULL){
         printPhone(current->right);
