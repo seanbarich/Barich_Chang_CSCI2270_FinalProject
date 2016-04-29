@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 
-#include "PhoneBook.h"
+#include "PhoneBook2.h"
 using namespace std;
 PhoneBook::PhoneBook()
 {
@@ -15,7 +15,7 @@ PhoneBook::PhoneBook()
 }
 PhoneBook::~PhoneBook()
 {
-	
+
 }
 
 Contact* PhoneBook::SearchPhoneBook(string name)
@@ -196,11 +196,10 @@ void PhoneBook::loadContacts()
 void PhoneBook::saveContacts()
 {
 	saveContacts(root);
-	ofstream outputFile;
-	outputFile.open("Contacts.txt");
+	ofstream outputFile("Contacts.txt");
 	if(outputFile.is_open())
 	{
-		for(int i = 0; i < contacts.size() - 1; i++)
+		for(int i = 0; i < contacts.size(); i++)
 		{
 			outputFile << contacts[i] -> name << "," << contacts[i] -> number << "," << contacts[i] -> email << ",";
 			outputFile << contacts[i] -> search << "," << contacts[i] -> favorite << std::endl;
@@ -290,8 +289,8 @@ void PhoneBook::printPhone(Contact* current)
     if(current->left!=NULL){
         printPhone(current->left);
     }
-    cout<<"Name: "<<current->name<<
-    cout<<"Number: "<<current->number<<
+    cout<<"Name: "<<current->name<<endl;
+    cout<<"Number: "<<current->number<<endl;
     cout<<"Email: "<<current->email<<endl;
     if(current->right!=NULL){
         printPhone(current->right);
@@ -300,7 +299,9 @@ void PhoneBook::printPhone(Contact* current)
 
 void PhoneBook::printPhoneBook()
 {
+
     if (root != NULL){
+		Favorites();
         printPhone(root);
     }
 }

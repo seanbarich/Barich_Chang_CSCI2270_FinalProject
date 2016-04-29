@@ -17,7 +17,7 @@ struct Contact {
 
     Contact(){};
 
-    Contact(std::string in_name, std::string in_number, std::string in_email, int in_search, int in_favorite)
+    Contact(std::string in_name,std::string in_number, std::string in_email, int in_search, int in_favorite)
     {
         number = in_number;
         name = in_name;
@@ -43,7 +43,6 @@ public:
     void loadContacts();
     void saveContacts();
     void updateSearchCount(std::string name);
-    void Favorites();
     void ChangeFavorite(std::string name, int favorite);
     void Recent();
 
@@ -56,6 +55,6 @@ private:
     std::vector<Contact*> recent;
     void saveContacts(Contact *node);
     void printFavorites(Contact *node);
-    void printPhone(Contact *node);
+    void printPhone(Contact* current);
 };
 #endif // PHONEBOOK_H
